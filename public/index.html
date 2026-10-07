@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Restaurant POS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="logged-out">
+  <div id="login" class="login">
+    <form id="loginForm" class="login-box">
+      <h1>Restaurant POS</h1>
+      <input id="loginUser" placeholder="Username" autocomplete="username" required>
+      <input id="loginPass" type="password" placeholder="Password" autocomplete="current-password" required>
+      <div id="loginError" class="login-error" hidden></div>
+      <button class="primary">Log in</button>
+    </form>
+  </div>
+
+  <header class="topbar">
+    <h1>Restaurant POS</h1>
+    <nav id="nav">
+      <button data-view="order" class="active">Order</button>
+      <button data-view="open">Open orders <span id="openCount" class="badge" hidden></span></button>
+      <button data-view="menu" class="admin-only">Menu</button>
+      <button data-view="reports" class="admin-only">Reports</button>
+      <button data-view="users" class="admin-only">Users</button>
+    </nav>
+    <div class="who">
+      <span id="who" class="muted"></span>
+      <button id="pwBtn" class="small">Password</button>
+      <button id="logoutBtn" class="small">Log out</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ORDER SCREEN -->
+    <section id="view-order" class="view layout-order">
+      <div class="menu-pane">
+        <div id="cats" class="tabs"></div>
+        <div id="items" class="grid"></div>
+      </div>
+      <aside class="cart">
+        <h2 id="cartTitle">New order</h2>
+        <div class="row">
+          <select id="type">
+            <option value="dine-in">Dine-in</option>
+            <option value="takeaway">Takeaway</option>
+          </select>
+          <input id="table" placeholder="Table no." maxlength="20">
+        </div>
+        <div id="cartLines" class="cart-lines"></div>
+        <div class="row">
+          <label for="discount">Discount</label>
+          <input id="discount" type="number" min="0" step="1" value="0">
+        </div>
+        <div id="totals" class="totals"></div>
+        <div class="row actions">
+          <button id="clearBtn" class="ghost">Clear</button>
+          <button id="saveBtn">Save order</button>
+          <button id="payBtn" class="primary">Pay</button>
+        </div>
+      </aside>
+    </section>
+
+    <!-- OPEN ORDERS -->
+    <section id="view-open" class="view" hidden>
+      <h2>Open orders</h2>
+      <div id="openList" class="cards"></div>
+    </section>
+
+    <!-- MENU ADMIN -->
+    <section id="view-menu" class="view" hidden>
+      <h2>Menu</h2>
+      <form id="catForm" class="inline-form">
+        <input id="catName" placeholder="New category name" required>
+        <button>Add category</button>
+      </form>
+      <form id="itemForm" class="inline-form">
+        <select id="itemCat" required></select>
+        <input id="itemName" placeholder="Item name" required>
+        <input id="itemPrice" type="number" min="0" step="1" placeholder="Price" required>
+        <button>Add item</button>
+      </form>
+      <div id="menuAdmin"></div>
+    </section>
+
+    <!-- USERS (admin) -->
+    <section id="view-users" class="view" hidden>
+      <h2>Users</h2>
+      <form id="userForm" class="inline-form">
+        <input id="newUser" placeholder="Username" required>
+        <input id="newPass" type="password" placeholder="Password (6+ characters)" required>
+        <select id="newRole"><option value="cashier">Cashier</option><option value="admin">Admin</option></select>
+        <button>Add user</button>
+      </form>
+      <div id="userList"></div>
+    </section>
+
+    <!-- REPORTS -->
+    <section id="view-reports" class="view" hidden>
+      <h2>Daily report</h2>
+      <div class="row"><input id="reportDate" type="date"></div>
+      <div id="reportBody"></div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal" hidden>
+    <div class="modal-box" id="modalBox"></div>
+  </div>
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
